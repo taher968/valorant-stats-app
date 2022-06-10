@@ -16,6 +16,8 @@ function App() {
     const data = await api_call.json()
     let kills = 0;
     let deaths = 0;
+    let assists = 0;
+    let headshots = 0;
 
 
 
@@ -24,17 +26,27 @@ function App() {
         if(data.data[i].players.all_players[j].name == username) {
           kills = kills + data.data[i].players.all_players[j].stats.kills
           deaths = deaths + data.data[i].players.all_players[j].stats.deaths
+          assists = assists + data.data[i].players.all_players[j].stats.assists
+          headshots = headshots + data.data[i].players.all_players[j].stats.headshots
         }
       }
     }
     console.log(kills)
     console.log(deaths)
     let kdratio = kills/deaths
+    let average_kills = kills/5
+    let average_deaths = deaths/5
+    let average_assists = assists/5
+    let average_headshots = headshots/5
     console.log(kdratio)
     const userDataKD = [{
       kills_total: kills,
       deaths_total: deaths,
-      kdratio_total: kdratio
+      kdratio_total: kdratio,
+      average_kills_total: average_kills,
+      average_deaths_total: average_deaths,
+      average_assists_total: average_assists,
+      average_headshots_total: average_headshots
     }]
     setUserData(userDataKD)
     console.log(userDataKD)
@@ -42,7 +54,7 @@ function App() {
   }
   return (
     <div className="App">
-      <h1>Valorant KD Ratio Calculator</h1> 
+      <h1>Valorant Stats App</h1> 
       <form className='add-form' onSubmit={submitForm}>
         <div className='form-control'>
         <input type="text" id="username" placeholder="Enter Username" name="username"></input>
